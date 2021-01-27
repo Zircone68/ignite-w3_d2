@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strive Ignite - Week 3 // Day 2</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+   <style>
+     .single-box {
+       height: 300px;
+     }
+      .single-image {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+     }
+     #results-section{
+       margin-top: 2rem;
+       margin-bottom: 1rem;
+     }
+     .container{
+       margin-top: 2rem;
+     }
+   </style>
+  </head>
+  <body>
+    <div id="searchArea" class="container">
+      <h2>Images Search-bar</h2>
+      
+      <input id="searchbar" type="search">
+      <button id="search-button" type="button" onclick="searchImages()">Search</button> 
+      
+      <div id="results-section" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"></div>
+    </div>
+  <script>
+
+    searchImages = async () => {
+      let imagesSectionReference = document.getElementById('results-section')
+      imagesSectionReference.innerHTML = ""
+      let inputText = document.getElementById('searchbar').value
+      let response = await fetch('http://www.splashbase.co/api/v1/images/search?query=' + inputText)
+      let searchResult = await response.json()
+      console.log(searchResult)
+      let images = searchResult.images
+      
+      for(let x=0; x<images.length; x++) {
+        let box = document.createElement('div')
+        box.classList.add('single-box','col')
+        
+        let image = document.createElement("img")
+        image.src = images[x].url
+        image.classList.add("single-image")
+        // box.innerHTML = ""; // remove any text from the box
+        imagesSectionReference.appendChild(box).appendChild(image)
+        // box.appendChild(image); // add the image inside of your element  
+        // image.innerHTML += "<img src='" + images[x].url + "'>"
+        // imageSectionReference.appendChild(images)
+      }
+    }
+      /*
+      
+        Google for pictures
+
+        You are creating a search engine for pictures.
+        The user should be able to access your webpage and seach for some pictures.
+        
+        - When the user clicks on a picture, remove it from the page
+        - When a new search is done, the previous list should be removed
+
+        [HINT]
+        - use fetch to retrieve the pictures
+        - create at runtime the elements on your container
+        - use bootstrap column system to create a responsive app
+        - check the response from the API! It's not giving you back and array, but an object containing an array named "images"!
+
+        API Docs: http://www.splashbase.co/api
+        Example: http://www.splashbase.co/api/v1/images/search?query=laptop
+
+        You should change the value after "query="
+
+      */
+    </script>
+</body>
+</html>
