@@ -26,11 +26,10 @@
   </head>
   <body>
     <div id="searchArea" class="container">
-      <h2>Images Search-bar</h2>
-      
-      <input id="searchbar" type="search">
+      <h2>Images search-bar</h2>
+
+      <input id="searchbar" type="search" placeholder="input here...">
       <button id="search-button" type="button" onclick="searchImages()">Search</button> 
-      
       <div id="results-section" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"></div>
     </div>
   <script>
@@ -51,11 +50,7 @@
         let image = document.createElement("img")
         image.src = images[x].url
         image.classList.add("single-image")
-        // box.innerHTML = ""; // remove any text from the box
         imagesSectionReference.appendChild(box).appendChild(image)
-        // box.appendChild(image); // add the image inside of your element  
-        // image.innerHTML += "<img src='" + images[x].url + "'>"
-        // imageSectionReference.appendChild(images)
       }
     }
       /*
